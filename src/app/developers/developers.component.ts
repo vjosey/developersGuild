@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Developer} from '../developer';
-import {DEVELOPERS} from '../mock-developers';
+import { DeveloperService } from './developer.service';
 
 @Component({
   selector: 'app-developers',
@@ -8,14 +8,23 @@ import {DEVELOPERS} from '../mock-developers';
   styleUrls: ['./developers.component.css']
 })
 export class DevelopersComponent implements OnInit {
-  developer: Developer ={ id: 1, name: "Windstorm"};
+  seletedDeveloper: Developer = { id: 1, name: "Windstorm"};
 
-  developers: Developer[] = DEVELOPERS;
+  developers: Developer[] = [];
 
-  constructor() { }
+  constructor(private devService: DeveloperService) { }
 
   ngOnInit(): void {
-
+    this.getDevelopers();
   }
+
+  onSeleted(dev: Developer): void{
+
+    this.seletedDeveloper = dev;
+  }
+
+getDevelopers(): void{
+ this.devService.getDevelopers().subscribe(developers => this.developers = developers);
+}
 
 }
