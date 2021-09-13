@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { MessageService } from '../message.service';
 import { Developer } from '../developer';
 import { DEVELOPERS } from '../mock-developers';
 
@@ -8,10 +9,11 @@ import { DEVELOPERS } from '../mock-developers';
 })
 export class DeveloperService {
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   getDevelopers(): Observable<Developer[]>{
     const developers =of(DEVELOPERS);
+    this.messageService.add('DeveloperService: fetched developers');
     return developers;
   }
 }
